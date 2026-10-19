@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference; // ← AJOUT IMPORTANT
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,11 +33,12 @@ public class Contrat {
     @Column(nullable = false)
     private boolean valide;
 
+    // Annotation ajoutée pour gérer la sérialisation JSON bidirectionnelle
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference("contrat-paiements")
+    private List<Paiement> paiements = new ArrayList<>();
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reservation")
     private Reservation reservation;
-
-    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL,
-            orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Paiement> paiements = new ArrayList<>();
 }

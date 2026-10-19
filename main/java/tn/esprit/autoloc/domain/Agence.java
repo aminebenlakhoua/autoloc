@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +26,10 @@ public class Agence {
     @Column(nullable = false, length = 50)
     private String ville;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 200)
     private String adresse;
 
-    @Column(length = 20)
+    @Column(nullable = false, length = 20)
     private String telephone;
 
     @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
@@ -38,4 +37,6 @@ public class Agence {
 
     @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY)
     private List<Employe> employes = new ArrayList<>();
+
+
 }

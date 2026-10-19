@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import jakarta.persistence.ManyToOne ;
+import jakarta.persistence.FetchType ;
+
 import java.time.LocalDate;
 
 @Entity
@@ -23,12 +26,12 @@ public class Maintenance {
     @Column(nullable = false)
     private LocalDate dateDebut;
 
+    @Column
     private LocalDate dateFin;
 
-    @Column(length = 255)
+    @Column(length = 500)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_vehicule")
     private Vehicule vehicule;
 }
